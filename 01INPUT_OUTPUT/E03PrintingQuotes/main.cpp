@@ -56,17 +56,45 @@
 
 #include "Console.h"
 
+void getQuoteAndAuthor(Console& console);
+
 int main()
 {
     Console console;
-    std::string line;
+    
+    // Diplay program title
+    console.newline();
+    console.printline("PRINTING QUOTES\n");
+    console.printline("---------------\n");
+    console.newline();
 
-    console.newline();
-    //console.printline("Enter a string: ");
-    //console.getUserInput();
-    line = console.getUserInput("Enter a string: ");
-    console.printline("You entered: " + line + "\n");
-    console.newline();
+    /***************************************************
+     STAGE ONE
+     ***************************************************/
+    
+    // Get a quote and author from the user.
+    getQuoteAndAuthor(console);
+    
+    // Store the repsonse 
+    // Display the quotation and author
+    
+    /***************************************************
+     STAGE TWO. Challenge
+     ***************************************************/
+    
     
     return 0;
+}
+
+/**
+ * Get a single quote and author from the user.
+ */
+void getQuoteAndAuthor(Console& console)
+{
+    std::string quote;
+    std::string author;
+
+    quote = console.getUserInput("What is the quote: ");
+    author = console.getUserInput("Who said it? ");
+    console.newline();
 }
