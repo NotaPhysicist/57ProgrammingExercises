@@ -2,7 +2,11 @@
  * Program asks for a name, and repeats it back to the user
  * inside message. 
  *  
- * Just the basic program. No challenges. 
+ * This exercise asks for simple, procedural code, nothing fancy. 
+ * 
+ * Further challenge: Display different greetngs for different people. 
+ * In you're not a complete beginner, no need to go that far. Move on
+ * to more interesting challenges. 
  */
 
  #include <iostream>
