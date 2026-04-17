@@ -47,7 +47,7 @@
 
     Other Notes:
 
-    Separate console and IO concerns into a view class. Something to develop
+    Separate IO concerns into a view class. Something to develop
     and use as you work though these early console applications. 
 
     Remember: you have to write a program once to know how you should have 
@@ -56,7 +56,13 @@
 
 #include "Console.h"
 
-void getQuoteAndAuthor(Console& console);
+struct quotation
+{
+    std::string quote;
+    std::string author;
+};
+
+std::string formatQuote(const quotation q);
 
 int main()
 {
@@ -73,28 +79,31 @@ int main()
      ***************************************************/
     
     // Get a quote and author from the user.
-    getQuoteAndAuthor(console);
-    
-    // Store the repsonse 
+    // Store the repsonse
+    quotation qu;
+    qu.quote = console.getUserInput("What is the quote: ");
+    qu.author = console.getUserInput("Who said it? ");
+     
     // Display the quotation and author
+    console.printline(formatQuote(qu));
+    console.newline();
     
     /***************************************************
      STAGE TWO. Challenge
      ***************************************************/
     
+    // Open the data file
+    // Import the data into an array of structs
+        // Count the number quotations in the data file
+        // Create a dynamic array to hold the structs
+    // Display the quotes
     
     return 0;
 }
 
-/**
- * Get a single quote and author from the user.
- */
-void getQuoteAndAuthor(Console& console)
-{
-    std::string quote;
-    std::string author;
 
-    quote = console.getUserInput("What is the quote: ");
-    author = console.getUserInput("Who said it? ");
-    console.newline();
+std::string formatQuote(const quotation q)
+{
+    return (q.author +  " says, \"" + q.quote + ".\"\n");
 }
+
