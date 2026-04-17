@@ -55,6 +55,9 @@
 */
 
 #include "Console.h"
+#include <fstream>
+#include <string>
+#include <vector>
 
 struct quotation
 {
@@ -63,6 +66,7 @@ struct quotation
 };
 
 std::string formatQuote(const quotation q);
+std::string formatQuote(std::string quote, std::string author);
 
 int main()
 {
@@ -72,31 +76,86 @@ int main()
     console.newline();
     console.printline("PRINTING QUOTES\n");
     console.printline("---------------\n");
-    console.newline();
+    
 
     /***************************************************
      STAGE ONE
      ***************************************************/
+    console.newline();
+    console.printline("STAGE ONE\n");
     
     // Get a quote and author from the user.
     // Store the repsonse
     quotation qu;
+    console.newline();
     qu.quote = console.getUserInput("What is the quote: ");
     qu.author = console.getUserInput("Who said it? ");
-     
+    
     // Display the quotation and author
     console.printline(formatQuote(qu));
-    console.newline();
     
+
     /***************************************************
      STAGE TWO. Challenge
      ***************************************************/
+    console.newline();
+    console.printline("STAGE TWO\n");
     
-    // Open the data file
-    // Import the data into an array of structs
-        // Count the number quotations in the data file
-        // Create a dynamic array to hold the structs
-    // Display the quotes
+    /*
+    *  The quotes are in a text file the format:
+    *      <quote>
+    *      <author>
+    *      <quote>
+    *      <author>
+    *      ...
+    * 
+    * A JSON-like format would be better but, baby steps, baby steps. 
+    */
+   
+    // Ask the user for a filename (because, why not?)
+    console.newline();
+    std::string inData = console.getUserInput("Enter a filename: ");
+   
+    // Open the data file. 
+    std::ifstream file;
+    file.open(inData);
+    if (!file.is_open()) 
+    {    
+        console.printerror("Error opening file: " + inData);
+        return 1;
+    }
+
+   /*
+    * To KIS, read the quotes and authors into two parallel vector arrays,
+    * for now. Creating an ADT to store quote objects is inviting,  
+    * but it is two complex right now for my tiny, still learning, brain. 
+    */
+
+    // Import the data.
+    std::vector<std::string> quote; 
+    std::vector<std::string> author; 
+    std::string line;
+    bool even = false;  // flag to alternate which array to push to 
+
+    while (std::getline(file, line))
+    {
+        if (even) 
+        {
+            author.push_back(line);
+            even = false;
+        }
+        else
+        {
+            quote.push_back(line);
+            even = true;
+        }
+    }
+
+    // Display the quotes.
+    for (unsigned long i = 0; i < quote.size(); i++) {
+        console.printline(formatQuote(quote[i], author[i]));
+    }
+    console.newline();
     
     return 0;
 }
@@ -104,6 +163,14 @@ int main()
 
 std::string formatQuote(const quotation q)
 {
-    return (q.author +  " says, \"" + q.quote + ".\"\n");
+    return (q.author +  " said, \"" + q.quote + ".\"\n");
 }
+
+
+std::string formatQuote(std::string quote, std::string author)
+{
+    return (author +  " said, \"" + quote + ".\"\n");
+}
+
+
 

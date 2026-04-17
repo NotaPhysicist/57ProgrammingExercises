@@ -20,6 +20,7 @@ public:
     void newline(int n);
     void endline();
     void printline(const std::string line) const;
+    void printerror(const std::string line) const;
     std::string getUserInput();
     std::string getUserInput(std::string prompt);
 
