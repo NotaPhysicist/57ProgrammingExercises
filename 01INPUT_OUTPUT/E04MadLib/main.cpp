@@ -27,10 +27,11 @@
 */
 
 #include <iostream>
+#include <format>
 
-struct wordBlanks
+struct Blank
 {
-    std::string nown;
+    std::string noun;
     std::string verb;
     std::string adjective;
     std::string adverb;
@@ -38,5 +39,18 @@ struct wordBlanks
 
 int main()
 {
+    std::string storyTemplate;
+    Blank blank;
     
+    // Create the story template
+    // Orginal: ""Why do you walk your dog quickly?""
+    storyTemplate = std::format("Why do you {1} your {0} {2} {3}?",
+        blank.noun,        // 0
+        blank.verb,        // 1
+        blank.adjective,   // 2
+        blank.adverb       // 3
+    );
+       
+    // Get the words from the user
+    // Put these words into the story and display the result.
 }
