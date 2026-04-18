@@ -29,28 +29,68 @@
 #include <iostream>
 #include <format>
 
-struct Blank
-{
-    std::string noun;
-    std::string verb;
-    std::string adjective;
-    std::string adverb;
-};
+std::string getUserInput(std::string prompt);
+
+void printline(std::string line) { std::cout << line; }
+void newline() { std::cout << "\n"; }  // explicit formatting
+
 
 int main()
 {
-    std::string storyTemplate;
-    Blank blank;
+    struct Blank
+    {
+        std::string noun;
+        std::string verb;
+        std::string adjective;
+        std::string adverb;
+    } blank; 
     
     // Create the story template
     // Orginal: ""Why do you walk your dog quickly?""
-    storyTemplate = std::format("Why do you {1} your {0} {2} {3}?",
-        blank.noun,        // 0
-        blank.verb,        // 1
-        blank.adjective,   // 2
-        blank.adverb       // 3
-    );
+    // std::string storyTemplate;
+    // storyTemplate = std::format("Why do you {} your {} {} {}?\n",
+    //     blank.verb,        
+    //     blank.noun,        
+    //     blank.adjective,   
+    //     blank.adverb      
+    // );
+
+    newline();
+    printline("MAD LIB\n");
+    printline("Enter some random words and get back a hilarious story.\n");
+    newline();
        
     // Get the words from the user
+    blank.noun = getUserInput("Enter a noun: ");
+    blank.verb = getUserInput("Enter a verb: ");
+    blank.adjective = getUserInput("Enter an adjective: ");
+    blank.adverb = getUserInput("Enter an adverb: ");
+    newline();
+    
     // Put these words into the story and display the result.
+    printline(std::format("Why do you {} your {} {} {}?\n",
+        blank.verb, blank.noun, blank.adjective, blank.adverb));
+    newline();
 }
+
+std::string getUserInput(std::string prompt)
+{
+    std::string input = "";
+    bool done {false};  // flag to indicate a successful input
+    // Guard against empty input
+    while (!done)
+    {
+        printline(prompt);
+        std::getline(std::cin, input);
+        if (!input.empty()) {
+            done = true;
+        } 
+        else
+        {
+            printline("Input cannot be empty. Please try again.\n");
+            printline(prompt);
+        }
+    }
+    return input;
+}
+
