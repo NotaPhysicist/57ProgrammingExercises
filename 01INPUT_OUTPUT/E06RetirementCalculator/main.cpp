@@ -7,7 +7,22 @@
  *      At what age would you like to retire? 65 
  *      You have 40 years left until you can retire.
  *      It's 2015, so you can retire in 2055.
- *  
+ * 
+ * Permutations: 
+ *   (retirement age == current age)
+ * 
+ *      What is your current age? 65
+ *      At what age would you like to retire? 65 
+ *      Congratulations. You have reached your retirement age. 
+ *      It's 2026, so you can retire this year. 
+ * 
+ *   (retirement age < current age)
+ * 
+ *      What is your current age? 65
+ *      At what age would you like to retire? 60 
+ *      Looks like have already reached your retirement age.
+ *      It's 2026, so you could have retired in 2021. 
+ *       
  * CONSTRAINTS/CHALLENGES
  *      1. Convert input to numerical data before processing
  *      2. Get the current date from the computer and perform calculations 
@@ -19,76 +34,170 @@
  */
 
 #include <iostream>
+#include <string>
 #include <format>
+#include <chrono>
 
-#include "../../00Common/Console.h"
+#include "Console.h"
+
+void controller(Console& console);
+void displayHeader(Console& console);
+int getUsersCurrentAge(Console& console);
+int getUsersRetirementAge(Console& console);
+int getCurrentYear();
+std::string answer_YearsRemaining(int yearsRemaining);
+void tests(Console&, int, int, int, int);
+std::string answer_RetirementYear(int currentYear, int retireYear);
+
 
 int main()
 {
-    // INPUT
     Console console;
-    console.printline("\nRETIREMENT CALCULATOR\n");
-    console.printline("=====================\n");
-
-    // Get the user's current age.
-
-    std::string input = console.getUserString("What's up? ");
-    console.printline(input);
-    int value = console.getUserInteger("Enter an integer: ");
-    console.printline(std::format("{}", value));
-    
-    // int age = getInteger(0, 200, "What is your cureent age: ");
-    
-    // Get the user's proposed retirement age.
-    
-    // PROCESSING
-    // Calculate the years remaining until retirement.
-    // Calculate the year of proposed retirement.
-
-    // OUTPUT
-    // Display years remainning until reitirement
-    // Display the year of proposed retirement
-
+    controller(console);
     return 0;
 }
 
 
-/*
-void printline(std::string line) { std::cout << line; }
-
-std::string getUserInput(const std::string prompt)
+void controller(Console& console)
 {
-    return prompt;
+    displayHeader(console);
+    
+    // Get the ages from the user
+    int age = getUsersCurrentAge(console);
+    int retireAge = getUsersRetirementAge(console);
+    
+    // Process the input
+    int currentYear = getCurrentYear();
+    int yearsRemaining = (retireAge - age);
+    int retireYear = currentYear + yearsRemaining;
+    std::string answer1 = answer_YearsRemaining(yearsRemaining);
+    std::string answer2 = answer_RetirementYear(currentYear, retireYear); 
+    
+    // Display the  answers
+    console.printline(answer1);    
+    console.printline(answer2);   
+    console.printline(); 
+    
+    // tests(console, age, retireAge, currentYear, yearsRemaining);    
 }
 
 
-bool isInteger(int min, int max)
+void tests(Console& console, int age, int retireAge, int currentYear, 
+    int yearsRemaining)    
 {
-    return true;
+    console.printline();
+    console.printline("TESTS:"); 
+    console.printline("-----------------------"); 
+    console.printline(std::format("    current age: {}", age)); 
+    console.printline(std::format(" retirement age: {}", retireAge)); 
+    console.printline(std::format("   current year: {}", currentYear)); 
+    console.printline(std::format("years remaining: {}", yearsRemaining));
+    console.printline(); 
 }
 
 
-int getCurrentAge(int min, int max, std::string prompt)
+std::string answer_RetirementYear(int currentYear, int retireYear)
 {
-    return 1;
+    if (currentYear < retireYear) 
+    {
+        return std::format(
+            "It's {}, so you can retire in {}.", currentYear, retireYear
+        );
+    }
+    else if (currentYear == retireYear)
+    {
+        return std::format("It's {}, so you can retire this year.", currentYear);
+    }
+    else
+    {
+        return std::format(
+            "It's {}, so you could have retired in {}.", currentYear, retireYear);
+    }
 }
 
 
-auto getCurrentDate()
+std::string answer_YearsRemaining(int yearsRemaining)
 {
-    return "date";
+    if (0 < yearsRemaining) 
+    {
+         return std::format(
+            "You have {} years left until you can retire", yearsRemaining
+        );
+    } 
+    else if (0 == yearsRemaining) 
+    {
+        return "Congratuations. You have reached your retirement age.";
+    } 
+    else 
+    {
+        return "Looks like you have already reached your retirement age.";
+    }
 }
 
 
-int yearsUntilRetirement(int currentYear)
+int getCurrentYear() 
 {
-    return 0;
+    auto today = std::chrono::floor<std::chrono::days>(
+        std::chrono::system_clock::now()
+    );
+    std::chrono::year_month_day ymd {today};
+    return int(ymd.year());
 }
 
 
-int yearOfRetirement(int currentYear)
+int getUsersRetirementAge(Console& console)
 {
-    return 0;
+    int retirementAge{};
+    bool done {false};
+    const int ARBITRARY_MAX_RETIRE_AGE {200};
+    std::string prompt {"At what age would you like to retire? "};
+    while (!done)
+    {
+        retirementAge = console.getUserInteger(prompt);
+        if (0 < retirementAge && retirementAge <= ARBITRARY_MAX_RETIRE_AGE ) {
+            done = true;
+        } 
+        else 
+        {
+            std::string errMsg = 
+                "Please give a retirement age that is possible for " 
+                "a human being.";
+            console.printerror(errMsg);
+        }
+    }
+    return retirementAge;
 }
 
-*/
+
+int getUsersCurrentAge(Console& console)
+{
+    int age{};
+    bool done {false};
+    const int ARBITRARY_MAX_AGE_LIMIT {200};
+    console.printline(); // blank line for formatting
+    while (!done)
+    {
+        age = console.getUserInteger("What is your current age? ");
+        if (0 < age && age <= ARBITRARY_MAX_AGE_LIMIT) {
+            done = true;
+        } 
+        else 
+        {
+            std::string errMsg = 
+                "Please give an age that is currently possible for "
+                "a human being.";
+            console.printerror(errMsg);
+        }
+    }
+    return age;
+}
+
+
+void displayHeader(Console& console)
+{
+    std::string programTitle {"RETIREMENT YEAR CALCULATOR"};
+    console.printline(std::format("\n{}", programTitle));
+    for (int i = 0; i < static_cast<int>(programTitle.length()); i++) {
+        console.println("=");
+    }
+}
