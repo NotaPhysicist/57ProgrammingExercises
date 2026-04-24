@@ -50,14 +50,41 @@
  *         e. MVC architecture
  */
 
-#include <iostream>
+#include <print>
+#include <string>
+#include <string_view>
 
 #include "FeetToMeterConvert.h"
 
+void displayHeader();
+void controller(FeetToMeterConvert&);
+
 int main()
 {
-    FeetToMeterConvert ftmc;
-    ftmc.test_runtTests();
-
+    FeetToMeterConvert converter;
+    // ftmc.test_runtTests();  // double precision tests on the math
+    
+    displayHeader();
+    controller(converter);
+    
     return EXIT_SUCCESS;
+}
+
+
+void controller(FeetToMeterConvert& converter)
+{
+    // STAGE ONE: Feet to inches. 
+
+}
+
+
+void displayHeader()
+{
+    std::string_view title{ "AREA OF A RECTANGLE ROOM"};
+    std::string underline{""};
+    for (int i = 0; i < static_cast<int>(title.length()); i++)
+    {
+        underline += "=";
+    }
+    std::print("\n{}\n{}\n\n", title, underline);    
 }
