@@ -42,49 +42,32 @@
  *     1. Floating point precision. 
  *     2. More architecture. More separation of concerns. 
  *     3. Curious about using:
- *         a. C++23 println()
- *         b. constexp
- *         c. std::string_view
- *         c. STL std::stack, std::queue, templates. 
- *         d. OOP design patterns
- *         e. MVC architecture
+ * 
+ *         [x] C++23 println()
+ *         [x] constexp
+ *         [x] std::string_view
+ *         [ ] STL std::stack, std::queue, templates. 
+ *         [ ] OOP design patterns
+ *         [ ] MVC architecture
  */
 
-#include <print>
-#include <string>
-#include <string_view>
-
-#include "FeetToMeterConvert.h"
-
-void displayHeader();
-void controller(FeetToMeterConvert&);
+#include "area.h"
 
 int main()
 {
     FeetToMeterConvert converter;
-    // ftmc.test_runtTests();  // double precision tests on the math
+    Console console;
+    
+    /* Run double precision tests. 
+     * Passes silently. 
+     * Failing a test terminates the program with predudice.
+     */
+    converter.test_runtTests();  
     
     displayHeader();
-    controller(converter);
-    
+    run(converter, console);
     return EXIT_SUCCESS;
 }
 
 
-void controller(FeetToMeterConvert& converter)
-{
-    // STAGE ONE: Feet to inches. 
 
-}
-
-
-void displayHeader()
-{
-    std::string_view title{ "AREA OF A RECTANGLE ROOM"};
-    std::string underline{""};
-    for (int i = 0; i < static_cast<int>(title.length()); i++)
-    {
-        underline += "=";
-    }
-    std::print("\n{}\n{}\n\n", title, underline);    
-}
