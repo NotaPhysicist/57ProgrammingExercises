@@ -1,16 +1,20 @@
 #include "area.h"
 
+// STAGE TWO: Choose feet or inches for input
 void run(FeetToMeterConvert& converter, Console& console)
 {
-    // STAGE ONE: Feet to inches. 
-    constexpr std::string_view promptLfeet{ 
+    constexpr std::string_view prompt_FeetOrMeters {
+        "What unit are you measuring in: [f]eet or [m]eters? " };
+    constexpr std::string_view prompt_LenghtFeet{ 
         "What is the length of the room in feet? " };
-    constexpr std::string_view promptWfeet{ 
+    constexpr std::string_view prompt_WidthFeet{ 
         "What is the width of the room in feet? " };
 
+    char choice = inUnitChoice(prompt_FeetOrMeters, console);
+
     // Get dimensions from the user
-    double length_ft = inDimension(promptLfeet, console);
-    double width_ft = inDimension(promptWfeet, console);
+    double length_ft = inDimension(prompt_LenghtFeet, console);
+    double width_ft = inDimension(prompt_WidthFeet, console);
     
     // Calculations
     double length_m = converter.ftToM(length_ft);
@@ -19,7 +23,7 @@ void run(FeetToMeterConvert& converter, Console& console)
     double area_m = length_m + width_m;
     
     // Display the result
-    std::println("You entered dimensions of {} feet by {} feet.", 
+    std::println("\nYou entered dimensions of {} feet by {} feet.", 
         length_ft, width_ft);
     std::println("These are equivalent to {:.2f} by {:.2f} meters.", 
         length_m, width_m);
@@ -27,9 +31,40 @@ void run(FeetToMeterConvert& converter, Console& console)
     std::println("    {} square feet", area_ft);
     std::println("    {:.2f} square meters\n", area_m);
 
-    // std::println("\nTESTS:");
-    // std::println("{} x {} = {}", length_ft, width_ft, area_ft);
-    // std::println("{} x {} = {}\n", length_m, width_m, area_m);
+    std::println("\nTESTS:");
+    std::println("{} x {} = {}", length_ft, width_ft, area_ft);
+    std::println("{} x {} = {}", length_m, width_m, area_m);
+    std::println("choice: {}\n", choice);
+}
+
+
+int inUnitChoice(std::string_view prompt, Console& console)
+{
+    constexpr char choice_Ft = 'f';
+    constexpr char choice_M  = 'm';
+    
+    char choice{};
+    bool done{ false };
+    while (!done)
+    {
+        choice = console.in_Char(prompt);
+        choice = tolower(choice);
+        switch (choice)
+        {
+            case choice_Ft: 
+            case choice_M:
+                done = true;
+                break;
+            default:
+                std::println(
+                    "{} is not a valid choice. "
+                    "Please choose between [f]eeet or [m]eters.",
+                    choice
+                );
+                break;
+        }
+    }
+    return choice;
 }
 
 
@@ -53,7 +88,7 @@ bool isPositiveInteger(int n)
 
 void displayHeader()
 {
-    std::string title{ "AREA OF A RECTANGLE ROOM"};
+    std::string title{ " AREA OF A RECTANGLE ROOM "};
     std::string underline(title.size(), '=');
     std::println("\n{}\n{}\n{}\n", underline, title, underline);    
 }

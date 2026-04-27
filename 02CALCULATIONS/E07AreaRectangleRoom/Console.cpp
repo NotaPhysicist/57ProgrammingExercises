@@ -11,6 +11,7 @@ Console::Console()
 std::string Console::getInput()   { return input; }
 int Console::getInput_Integer()   { return input_Integer; }
 double Console::getInput_Double() { return input_Double; }
+char Console::getInput_Char()     { return ch; }
 
 
 std::string Console::in(std::string_view prompt)
@@ -36,7 +37,7 @@ int Console::in_Integer(std::string_view prompt)
     bool done{ false };
     while (!done)
     {
-        input = in(prompt);
+        in(prompt);
         // Attempt to convert to an integer
         try
         {
@@ -61,6 +62,16 @@ int Console::in_Integer(std::string_view prompt)
     return input_Integer;
 }
 
+
+char Console::in_Char(std::string_view prompt)
+{
+    /* Allow the use to enter a string of any length, 
+     * but all we're after is the first char
+     */
+    in(prompt);
+    ch = input[0];
+    return ch;
+}
 
 // double Console::getDoubleInput(std::string_view prompt)
 // {
