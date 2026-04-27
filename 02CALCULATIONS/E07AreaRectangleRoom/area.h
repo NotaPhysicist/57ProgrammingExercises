@@ -9,6 +9,9 @@
 
 void displayHeader();
 void run(FeetToMeterConvert& converter, Console& console);
+
 int inDimension(std::string_view prompt, Console& console);
+int inUnitChoice(std::string_view prompt, Console& console);
+
 bool isPositiveInteger(int n);
 
