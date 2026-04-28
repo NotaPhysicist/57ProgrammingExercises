@@ -7,19 +7,32 @@ void run(Console& console, Calculator& calculator)
     std::println("{}\n", header);
     
     // Get calulation parameters from the user
-    int n_People{ getAmountOfPeople(console, "How many people? ") };
-    int n_Pizzas{ 2 };
-    std::println("{} people with {} pizzas.", n_People, n_Pizzas);
-    
-    
+    int n_People { 
+        getValidQuantity(console, 
+            "How many people? ", 
+            "We need at least one person to have a party. Please try again."
+        ) 
+    };
+    int n_Pizzas {
+        getValidQuantity(console,
+            "How many pizzas do you have? ",
+            "We need at list one pizza to have a pizza party. Please try again"
+        )
+    };
     
     // Calulate the results
-    std::println("{}", calculator.getTotal() ); // temp unused varaible
+    calculator.calculateSlicesPerPerson(n_People, n_Pizzas);
+    int slicesPerPerson = calculator.getSlicesPerPerson();
+    int slicesRemaining = calculator.getSlicesRemaing();    
+    
     // Display the results
+    std::println("\n{} people with {} pizzas.", n_People, n_Pizzas);
+    std::println("Each persion gets {} pieces of pizza.", slicesPerPerson);
+    std::println("There are {} leftover pieces.\n", slicesRemaining);
 }
 
 
-int getAmountOfPeople(Console& console, std::string_view prompt)
+int getValidQuantity(Console& console, std::string_view prompt, std::string_view errMsg)
 {
     bool done{ false };
     int amount{};
@@ -30,8 +43,7 @@ int getAmountOfPeople(Console& console, std::string_view prompt)
             done = true;
         } 
         else {
-            std::println(stderr, 
-            "Error: {}", "We need at least one person to have a party. Please try again.");
+            std::println(stderr, "Error: {}", errMsg);
         }
     }
     return amount;
@@ -62,5 +74,5 @@ std::string getProgramTitle()
     std::string subTitle{
         "Project 8 from: Hogan. 2015. (57) Exercises for Programmers"};
     std::string underline(title.size(), '=');
-    return std::format("{}\n{}\n{}\n{}", underline, title, underline, subTitle);
+    return std::format("\n{}\n{}\n{}\n{}", underline, title, underline, subTitle);
 }

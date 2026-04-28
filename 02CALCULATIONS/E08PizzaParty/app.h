@@ -13,7 +13,7 @@ void run(Console& console, Calculator& calculator);
 
 // GET SOMETHING DONE FUNCTIONS
 std::string getProgramTitle(); 
-int getAmountOfPeople(Console& console, std::string_view prompt);                  
+int getValidQuantity(Console& console, std::string_view prompt, std::string_view errMsg);
 
 // UTILITY FUNCTIONS
 bool utility_isPositive(int n);

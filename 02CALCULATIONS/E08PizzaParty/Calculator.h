@@ -9,11 +9,17 @@ public:
     Calculator();
 
     // Getters
-    int getTotal();
-    
+    int getSlicesPerPerson();
+    int getSlicesRemaing();
+
     // Setters
+    void setSlicesPerPizza(int n_Slices = 8);
     // Functions
+    void calculateSlicesPerPerson(int n_People, int n_Pizzas);
 
 private:
-    int total;
+    int totalSlices;
+    int slicesPerPerson;
+    int slicesRemaining;
+    int slicesPerPizza;
 };
