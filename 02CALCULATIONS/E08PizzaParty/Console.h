@@ -17,11 +17,13 @@ class Console
         char getInput_Char();
         
         // Setters
-        // Functions
+        // Console In Functions
         std::string   in(std::string_view prompt = "> ");
         int   in_Integer(std::string_view prompt = "> ");
         char     in_Char(std::string_view prompt = "> ");
-     // double in_Double(std::string_view prompt = "> ");
+        
+        // Console Out Functions
+        void print(std::string_view s);
 
     private:
         std::string  input;

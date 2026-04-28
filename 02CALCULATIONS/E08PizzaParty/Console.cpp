@@ -73,7 +73,8 @@ char Console::in_Char(std::string_view prompt)
     return ch;
 }
 
-// double Console::getDoubleInput(std::string_view prompt)
-// {
 
-// }
+void Console::print(std::string_view s)
+{
+    std::println("{}", s);
+}
