@@ -8,13 +8,15 @@ void run(Console& console, Calculator& calculator)
     
     // Get calulation parameters from the user
     int n_People { 
-        getValidQuantity(console, 
+        getValidQuantity (
+            console, 
             "How many people? ", 
             "We need at least one person to have a party. Please try again."
         ) 
     };
     int n_Pizzas {
-        getValidQuantity(console,
+        getValidQuantity (
+            console,
             "How many pizzas do you have? ",
             "We need at list one pizza to have a pizza party. Please try again"
         )
@@ -26,9 +28,22 @@ void run(Console& console, Calculator& calculator)
     int slicesRemaining = calculator.getSlicesRemaing();    
     
     // Display the results
-    std::println("\n{} people with {} pizzas.", n_People, n_Pizzas);
-    std::println("Each persion gets {} pieces of pizza.", slicesPerPerson);
-    std::println("There are {} leftover pieces.\n", slicesRemaining);
+    std::println("\n{} {} with {} pizza{}.", 
+        n_People,                                 // number of people
+        ((n_People == 1) ? "person" : "people"),  // pluralization of person/people
+        n_Pizzas,                                 // number of pizzas
+        ((n_Pizzas == 1) ? "" : "s")              // pluralization of pizza/s
+    );
+    std::println("{} person gets {} piece{} of pizza.", 
+        ((n_People == 1) ? "One" : "Each"),       // pluralization of one/each
+        slicesPerPerson,                          // slices of pizza per person
+        ((slicesPerPerson == 1) ? "" : "s")       // pluralization of piece/s
+    );
+    std::println("There {} {} leftover piece{}.\n", 
+        ((slicesRemaining == 1) ? "is" : "are"),  // pluralization of is/are
+        slicesRemaining,                          // slices of pizza per person
+        ((slicesRemaining == 1) ? "" : "s")       // pluralization of piece/s
+    );
 }
 
 
@@ -39,7 +54,7 @@ int getValidQuantity(Console& console, std::string_view prompt, std::string_view
     while(!done)
     {
         amount = console.in_Integer(prompt);
-        if (1 < amount) {
+        if (0 < amount) {
             done = true;
         } 
         else {
@@ -72,7 +87,7 @@ std::string getProgramTitle()
      */    
     std::string title{ "  PIZZA PARTY  " };
     std::string subTitle{
-        "Project 8 from: Hogan. 2015. (57) Exercises for Programmers"};
+        "Project-8 from: Hogan. 2015. (57) Exercises for Programmers"};
     std::string underline(title.size(), '=');
     return std::format("\n{}\n{}\n{}\n{}", underline, title, underline, subTitle);
 }
