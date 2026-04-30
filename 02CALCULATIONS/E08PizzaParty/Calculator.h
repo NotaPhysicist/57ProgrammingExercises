@@ -9,17 +9,16 @@ public:
     Calculator();
 
     // Getters
-    int getSlicesPerPerson();
-    int getSlicesRemaing();
+    int getSlicesPerPizza() const;
 
     // Setters
     void setSlicesPerPizza(int n_Slices = 8);
+    
     // Functions
-    void calculateSlicesPerPerson(int n_People, int n_Pizzas);
+    int calc_SlicesPerPerson(int n_People, int n_Pizzas);
+    int calc_SlicesRemaining(int n_People, int n_Pizzas);
+    // int calc_PizzasRequired(int n_SlicesWanted);
 
 private:
-    int totalSlices;
-    int slicesPerPerson;
-    int slicesRemaining;
-    int slicesPerPizza;
+    int slicesPerPizza;       // default: 8, based on an average pizza, can be set 
 };
