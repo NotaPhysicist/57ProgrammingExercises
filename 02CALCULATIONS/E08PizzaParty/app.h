@@ -19,6 +19,7 @@ int getValidQuantity(Console& console, std::string_view prompt, std::string_view
 // UTILITY FUNCTIONS
 bool utility_isPositive(int n);
 
+// PLURALIZE TEXT FUNCTIONS
 std::string pluralize_Person(int n);
 std::string pluralize_Pizza(int n);
 std::string pluralize_OneEach(int n);

@@ -30,14 +30,20 @@ int Calculator::calc_SlicesRemaining(int n_People, int n_Pizzas)
 }
 
 
-// void Calculator::calc_PizzasRequired(int n_SlicesWanted)
-// {
-//     int slicesRequired = n_SlicesWanted * slicesPerPizza;
-//     if ((slicesRequired % slicesPerPizza) == 0) {
-//         // A whole number of pizzas required, no leftovers
-//         pizzasRequired = slicesRequired / slicesPerPizza;
-//     } else {
-//         // Round up the division
-//         pizzasRequired = (slicesRequired + slicesPerPizza - 1) / slicesPerPizza;
-//     }
-// }
+int Calculator::calc_PizzasRequired(int n_SlicesWanted, int n_People)
+{
+    int slices_Required = n_SlicesWanted * n_People;
+    int pizzas_Required{};
+    
+    if ((slices_Required % slicesPerPizza) == 0) 
+    {
+        // A whole number of pizzas required, no leftovers
+        pizzas_Required = slices_Required / slicesPerPizza;
+    } 
+    else 
+    {
+        // Round up the division using the standard idiom
+        pizzas_Required = (slices_Required + slicesPerPizza - 1) / slicesPerPizza;
+    }
+    return pizzas_Required;
+}

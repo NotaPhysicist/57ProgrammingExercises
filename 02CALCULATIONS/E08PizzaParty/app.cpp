@@ -21,7 +21,7 @@ void run(Console& console, Calculator& calculator)
             "We need at list one pizza to have a pizza party. Please try again"
         )
     };
-    [[maybe_unused]] int n_PiecesWanted {
+    int n_PiecesWanted {
         getValidQuantity (
             console,
             "How many pieces does each person want? ",
@@ -53,29 +53,30 @@ void run(Console& console, Calculator& calculator)
         slices_Remaining,                          // slices of pizza per person
         pluralize_Piece(slices_Remaining)
     );   
+
+    // Do we have enough pizzas to meet our needs? 
+    int pizzas_Required  = calculator.calc_PizzasRequired(n_PiecesWanted, n_People);
+
+    if (n_Pizzas < pizzas_Required)
+    {
+        /* "If you want 10 pieces per person, you will need 4 pizzas in total." */
+        std::println("If you want {} piece{} per person, you will need {} pizza{} in total.\n",
+            n_PiecesWanted,
+            pluralize_Piece(n_PiecesWanted),
+            pizzas_Required,
+            pluralize_Pizza(pizzas_Required)            
+        );
+    }
+    else
+    {
+        /* "There are enough pizzas available to meet your target of 4 pieces per person" */
+        std::println(
+            "There are enough pizzas available to meet your target of {} piece{} per person.\n",
+            n_PiecesWanted,
+            pluralize_Piece(n_PiecesWanted)
+        );
+    }
 }
-//     // Do we have enough pizzas to meet our needs? 
-//     int pizzasRequired  = calculator.getPizzasRequired();    
-//     if (n_Pizzas < pizzasRequired)
-//     {
-//         /* "If you want 10 pieces per person, you will need 4 pizzas in total." */
-//         std::println("If you want {} piece{} per person, you will need {} pizza{} in total",
-//             n_PiecesWanted,
-//             pluralize_Piece(n_PiecesWanted),
-//             pizzasRequired,
-//             pluralize_Pizza(pizzasRequired)            
-//         );
-//     }
-//     else
-//     {
-//         /* "There is plenty of pizza to meet your target of 10 pieces per person." */
-//         std::println("{}",
-//             "There are enough pizzas available to meet your target of {} piece{} per person",
-//             n_PiecesWanted,
-//             pluralize_Piece(n_PiecesWanted)
-//         );
-//     }
-// }
 
 
 std::string pluralize_Person(int n)  { return ((n == 1) ? "person" : "people"); }
