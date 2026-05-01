@@ -74,7 +74,16 @@ char Console::in_Char(std::string_view prompt)
 }
 
 
-void Console::print(std::string_view s)
+void Console::print_Error(std::string_view errorMsg) const
 {
-    std::println("{}", s);
+    std::println(stderr, "ERROR: {}", errorMsg);
 }
+
+
+void Console::PRINT_TEST(std::string_view value) const
+{
+    std::println("::TEST:: {}", value);
+}
+
+
+
