@@ -28,7 +28,18 @@
  *     • Roll your own test rig and begin testing non-trivial functions
  */
 
+// TODO What other flags does this extension provide?
+// TODO: Finish defining the classes. Get them to compile
+// TODO: Introduce namespaces
+// TODO: Build a test rig to test the classes
+// TODO: Best way to build a menu? 
+
+// FIXME: 
+// HACK 
+// BUG
+
 #include "app.h"
+#include "ShapeCollection.h"
 
 int main()
 {

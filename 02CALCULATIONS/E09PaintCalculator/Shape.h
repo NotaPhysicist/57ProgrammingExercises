@@ -1,47 +1,32 @@
 #pragma once
 
-#include <vector>
-#include <memory>
+#include <numbers>
 
-
-class ShapeCollection
-{
-    public:
-        ShapeCollection() : totalArea(0), n_Spaces(0), n_Liters(0) {}
-        double getTotalArea() const; 
-        int get_nSpaces() const;
-        int getLiters() const;
-        void calulateTotalArea();
-        void calulateLiters();
-        
-        template<typename T, typename... Args>
-        void add(Args&&... args);
-        
-    private:
-        std::vector<std::unique_ptr<Shape>> shapes;
-        double totalArea;  // square meters
-        int n_Spaces;      // number of composite spaces
-        int n_Liters;  // liters, rounded up to the next whole number
-};
+constexpr int MM2_TO_M2 { 1'000'000};
+constexpr double PI{ std::numbers::pi };
 
 class Shape
 {
     public:
         Shape() : area(0) {}
         virtual ~Shape() = default;
+        
+        double Shape::getArea() const { return area; }
+        
         virtual void calcArea() = 0;
-        double getArea() const;
 
     protected:
         double area;  // square meters
 };
 
-class Rectangle : public Shape
+class Rectangle : virtual public Shape
 {
     public:
         Rectangle(int length, int width) : Shape(), length(length), width(width) {}
-        int getLength() const;
-        int getWidth() const;
+        
+        int Rectangle::getLength() const { return length; }
+        int Rectangle::getWidth() const { return width; }
+    
         void calcArea() override;
 
     private:
@@ -49,13 +34,16 @@ class Rectangle : public Shape
         int width;   // millimeters
 };
 
-class Circle : public Shape
+class Circle : virtual public Shape
 {
     public:
         Circle(int diameter) : Shape(), diameter(diameter) {}
-        int getDiameter() const;
+        
+        int Circle::getDiameter() const { return diameter; }
+        
         void calcArea() override;
 
     private:
         int diameter;  // millimeters
 };
+

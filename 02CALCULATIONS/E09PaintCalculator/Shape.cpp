@@ -1,9 +1,18 @@
 #include "Shape.h"
+#include <numbers>
 
 
-template<typename T, typename... Args>
-void add(Args&&... args)
+void Rectangle::calcArea() 
 {
-    static_assert(std::is_base_of<Shape, T>::value, "T must derive from Shape");
-    shapes.push_back(std::make_unique<T>(std::forward<Args>(args)...));
+    int area_MM2 = length * width;                      // area in mm^2
+    area = static_cast<double>(area_MM2) / MM2_TO_M2;   // area in m^2
 }
+
+
+void Circle::calcArea()
+{
+    int areaMM2 = PI * diameter;                         // area in mm^2
+    area = static_cast<double>(areaMM2) / MM2_TO_M2;     // area in m^2
+}
+
+

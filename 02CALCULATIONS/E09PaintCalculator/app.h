@@ -6,7 +6,7 @@
 #include <string>
 
 #include "Console.h"
-#include "Shape.h"
+#include "ShapeCollection.h"
 
 /*
 NOTES: 
