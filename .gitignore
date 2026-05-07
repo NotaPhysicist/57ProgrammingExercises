@@ -1,5 +1,7 @@
 # GLOBAL C++ VS CODE MACOS
 
+*.todo
+
 # = = = = = = = = = = = = = = = = = = = = = = = =
 # https://github.com/github/gitignore/blob/main/Global/macOS.gitignore
 # General

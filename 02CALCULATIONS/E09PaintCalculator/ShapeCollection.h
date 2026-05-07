@@ -4,16 +4,17 @@
 
 #include <vector>
 #include <memory>
+#include <cmath>
 
 
 class ShapeCollection
 {
 public:
-    ShapeCollection() : totalArea(0), n_Spaces(0), n_Liters(0) {}
+    ShapeCollection() : totalArea(0), nSpaces(0), nLiters(0) {}
     
-    double ShapeCollection::getTotalArea() const { return totalArea; }
-    int ShapeCollection::get_nSpaces() const { return n_Spaces; }
-    int ShapeCollection:: getLiters() const { return n_Liters; }
+    double getTotalArea() const { return totalArea; }
+    int getNSpaces() const { return nSpaces; }
+    int getLiters() const { return nLiters; }
     
     void calcTotalArea();
     void calcTotalLiters();
@@ -29,6 +30,6 @@ public:
 private:
     std::vector<std::unique_ptr<Shape>> shapes;
     double totalArea;  // square meters
-    int n_Spaces;      // number of composite spaces
-    int n_Liters;      // liters, rounded up to the next whole number
+    int nSpaces;       // number of composite spaces
+    int nLiters;       // liters, rounded up to the next whole number
 };

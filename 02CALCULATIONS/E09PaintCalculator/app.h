@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <cmath>
 
 #include "Console.h"
 #include "ShapeCollection.h"
@@ -34,7 +35,7 @@ Total coverage:
 Number of gallons required:
 */
 
-void run(Console& console);
+void run();
 std::string makeTitle(); 
 bool signal(std::string_view s, char flag);
 bool signal_Exit(std::string_view s);

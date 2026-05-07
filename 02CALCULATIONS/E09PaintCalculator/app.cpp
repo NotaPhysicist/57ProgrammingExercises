@@ -1,42 +1,42 @@
 #include "app.h"
 
-void run([[maybe_unused]] Console& console)
+void run()
 {
     // Display the program title and introduction
     std::println("{}", makeTitle());
     
-    // object templete
-    ShapeCollection collection;
+    [[maybe_unused]] Console console;
+    [[maybe_unused]] ShapeCollection collection;
 
     collection.add<Rectangle>(3500, 4800);
     collection.add<Circle>(3200);
 
 
-    // Run the program until the user quits. 
-    bool done{ false };
-    while (!done)
-    {
-        std::string response = console.in("Is the shape a [c]ircle or a [r]ectangle?");
-        char choice = std::tolower(response[0]);
-        switch (choice)
-        {
-            case 'r': // rectangle
-                std::println("You entered {} for rectangle", choice);
-                break;
-                case 'c': // circle
-                std::println("You entered {} for circle", choice);
-                break;
-                case 'd': // done
-                std::println("You entered {} for done", choice);
-                done = true;
-                break;
-                case 'e': // exit
-                std::println("You entered {} for exit", choice);
-                break;
-                default:  // invalid response
-                std::println("You entered {} for whatthefuck", choice);
-                break;
-        }
+    // // Run the program until the user quits. 
+    // bool done{ false };
+    // while (!done)
+    // {
+    //     std::string response = console.in("Is the shape a [c]ircle or a [r]ectangle?");
+    //     char choice = std::tolower(response[0]);
+    //     switch (choice)
+    //     {
+    //         case 'r': // rectangle
+    //             std::println("You entered {} for rectangle", choice);
+    //             break;
+    //             case 'c': // circle
+    //             std::println("You entered {} for circle", choice);
+    //             break;
+    //             case 'd': // done
+    //             std::println("You entered {} for done", choice);
+    //             done = true;
+    //             break;
+    //             case 'e': // exit
+    //             std::println("You entered {} for exit", choice);
+    //             break;
+    //             default:  // invalid response
+    //             std::println("You entered {} for whatthefuck", choice);
+    //             break;
+    //     }
         
         
 
@@ -58,7 +58,7 @@ void run([[maybe_unused]] Console& console)
         // Calculate the area
         // Display the result
         // Ask the user for a new measurement, or exit the program. 
-    }
+    // }
 }
 
 

@@ -2,8 +2,10 @@
 
 #include <numbers>
 
-constexpr int MM2_TO_M2 { 1'000'000};
-constexpr double PI{ std::numbers::pi };
+namespace PaintCalc
+{
+    constexpr int MM2_TO_M2 { 1'000'000};
+}
 
 class Shape
 {
@@ -11,7 +13,7 @@ class Shape
         Shape() : area(0) {}
         virtual ~Shape() = default;
         
-        double Shape::getArea() const { return area; }
+        double getArea() const { return area; }
         
         virtual void calcArea() = 0;
 
@@ -24,8 +26,8 @@ class Rectangle : virtual public Shape
     public:
         Rectangle(int length, int width) : Shape(), length(length), width(width) {}
         
-        int Rectangle::getLength() const { return length; }
-        int Rectangle::getWidth() const { return width; }
+        int getLength() const { return length; }
+        int getWidth() const { return width; }
     
         void calcArea() override;
 
@@ -39,7 +41,7 @@ class Circle : virtual public Shape
     public:
         Circle(int diameter) : Shape(), diameter(diameter) {}
         
-        int Circle::getDiameter() const { return diameter; }
+        int getDiameter() const { return diameter; }
         
         void calcArea() override;
 
